@@ -31,7 +31,10 @@ class BarcoPirata {
   method elMasBoracho() = tripulantes.max({t=>t.nivelDeEbriedad()})
   method removerAlMasBorracho() {tripulantes.remove(self.elMasBoracho())}
   method esTemible() = mision.puedeCompletarMision(self)
-
+  // punto 8 desafío
+  method cantidadQueInvito(unPirata) = tripulantes.count({t=>t.invitadoPor()==unPirata})
+  method invitadores() = tripulantes.map({t=>t.invitadoPor()}).asSet()
+  method elQueMasInvito() = self.invitadores().max({i=>self.cantidadQueInvito(i)})
 }
 
 class Ciudad {
@@ -48,6 +51,8 @@ class Ciudad {
 class Pirata {
   var nivelEbriedad
   var monedas
+  var property invitadoPor
+
   method tieneMenosDe(cantidad) = monedas <= cantidad
   const property items = []
   method agregarItem(unItem) {items.add(unItem)}
